@@ -86,7 +86,7 @@ export default function Home() {
               {[
                 { src: "img/Honolulu.jpeg", name: "Honolulu", country: "Hawaii" },
                 { src: "img/Roma.webp", name: "Rome", country: "Italy" },
-                { src: "img/Bali.jpeg", name: "Bali", country: "Indonesia" },
+                { src: "public/img/Bali.jpeg", name: "Bali", country: "Indonesia" },
                 { src: "img/France.avif", name: "Paris", country: "France" },
               ].map((dest, idx) => (
                 <div
