@@ -12,27 +12,27 @@ export default function Login() {
         <nav className="self-center hidden md:flex">
           <ul className="flex items-center gap-8">
             <li>
-              <Link className="relative pb-1 text-white hover:after:w-full" to="/">
+              <Link className="relative pb-1 text-white after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full" to="/">
                 Destinations
               </Link>
             </li>
             <li>
-              <Link className="relative pb-1 text-white hover:after:w-full" to="/">
+              <Link className="relative pb-1 text-white after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full" to="/">
                 Tours
               </Link>
             </li>
             <li>
-              <Link className="relative pb-1 text-white hover:after:w-full" to="/">
+              <Link className="relative pb-1 text-white after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full" to="/">
                 About
               </Link>
             </li>
             <li>
-              <Link className="relative pb-1 text-white hover:after:w-full" to="/">
+              <Link className="relative pb-1 text-white after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full" to="/">
                 Contact
               </Link>
             </li>
             <li>
-              <Link className="relative pb-1 text-white hover:after:w-full" to="/login">
+              <Link className="relative pb-1 text-white after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full" to="/login">
                 Log in
               </Link>
             </li>
