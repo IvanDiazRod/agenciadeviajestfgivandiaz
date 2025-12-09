@@ -3,11 +3,15 @@ import { Link } from "react-router-dom";
 export default function Home() {
   return (
     <>
-      {/* HEADER */}
       <header className="flex items-center justify-between w-full px-8 py-6 bg-blue-700 shadow-lg">
+
         <h1 className="text-white text-2xl md:text-4xl font-semibold">Travel agency</h1>
-        <nav className="self-center hidden md:flex">
-          <ul className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+
+        <button id="menu-btn" class="text-white text-3xl md:hidden">☰</button>
+
+        <nav className="mobile-menu hidden self-center md:flex" aria-label="Main navigation">
+
+          <ul className="flex flex-col md:flex-row items-center gap-4 md:gap-8 bg-blue-700 md:bg-transparent absolute md:static top-full left-0 w-full md:w-auto p-6 md:p-0 shadow-md md:shadow-none">
             <li>
               <Link className="relative pb-1 text-white after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full" to="/">
                 Destinations
