@@ -160,20 +160,302 @@ import { useState } from "react";
 
         </section>
 
-        <section className="w-full flex items-center justify-center px-6 py-12">
+        <section className="w-full bg-gray-50 py-20 px-6">
 
-          <div className="max-w-3xl text-center flex flex-col gap-4">
+          <div className="max-w-6xl mx-auto text-center mb-14">
+    
+            <h2 className="text-4xl md:text-5xl font-semibold text-gray-800">Why travel with us?</h2>
 
-            <h2 className="text-3xl sm:text-4xl font-semibold">Why should you travel with us?</h2>
+            <p className="mt-4 text-gray-600 text-lg">We create unforgettable experiences tailored just for you.</p>
 
-            <p className="text-gray-600 text-lg leading-relaxed">We offer customized tours, exclusive services, and we can make you sure that you will never forget every experience.</p>
+          </div>
+
+          <div className="max-w-6xl mx-auto grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+
+            <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition duration-300 hover:-translate-y-1">
+
+              <div className="w-14 h-14 flex items-center justify-center bg-blue-100 text-blue-600 rounded-xl mb-6">
+              
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6"><path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" /></svg>
+              
+              </div>
+
+              <h3 className="text-xl font-semibold mb-2 text-gray-800">Handpicked Destinations</h3>
+
+              <p className="text-gray-600 leading-relaxed">We carefully select unique and authentic locations around the world.</p>
+            
+            </div>
+
+            <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition duration-300 hover:-translate-y-1">
+
+              <div className="w-14 h-14 flex items-center justify-center bg-blue-100 text-blue-600 rounded-xl mb-6">
+              
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6"><path strokeLinecap="round" strokeLinejoin="round" d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z" /></svg>
+              
+              </div>
+
+              <h3 className="text-xl font-semibold mb-2 text-gray-800">Handpicked Destinations</h3>
+
+              <p className="text-gray-600 leading-relaxed">We carefully select unique and authentic locations around the world.</p>
+            
+            </div>
+
+
+            <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition duration-300 hover:-translate-y-1">
+
+              <div className="w-14 h-14 flex items-center justify-center bg-blue-100 text-blue-600 rounded-xl mb-6">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6"><path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" /></svg>
+
+              </div>
+
+              <h3 className="text-xl font-semibold mb-2 text-gray-800">Handpicked Destinations</h3>
+
+              <p className="text-gray-600 leading-relaxed">We carefully select unique and authentic locations around the world.</p>
+
+            </div>
 
           </div>
 
         </section>
+
+        <section className="w-full bg-gray-50 py-20 px-6">
+
+          <div className="max-w-6xl mx-auto text-center mb-14">
+    
+            <h2 className="text-4xl md:text-5xl font-semibold text-gray-800">What our clients say</h2>
+    
+            <p className="mt-4 text-gray-600 text-lg">Real experiences from happy travelers around the world</p>
+  
+          </div>
+
+          <div className="max-w-6xl mx-auto grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+
+            <div className="bg-blue-800 p-8 rounded-2xl shadow-md hover:shadow-xl transition duration-300">
+
+              <div className="flex items-center gap-4 mb-4">
+        
+                <img src="https://randomuser.me/api/portraits/women/40.jpg" alt="Client" className="w-14 h-14 rounded-full object-cover"/>
+        
+              <div>
+          
+            <h3 className="font-semibold text-white">Emily Johnson</h3>
+          
+            <p className="text-sm text-gray-100">United Kingdom</p>
+        
+          </div>
+      
+        </div>
+
+        <div className="flex gap-1 text-yellow-300 mb-3">
+  
+          {[...Array(5)].map((_, i) => (<svg key={i} className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" /></svg>))}
+
+        </div>
+
+        <p className="text-white leading-relaxed">The trip was perfectly organized. Every detail was taken care of and the experience exceeded our expectations. We will definitely travel with them again!</p>
+
+      </div>
+
+    <div className="bg-orange-700 p-8 rounded-2xl shadow-md hover:shadow-xl transition duration-300">
+
+      <div className="flex items-center gap-4 mb-4">
+        <img
+          src="https://randomuser.me/api/portraits/women/60.jpg"
+          alt="Client"
+          className="w-14 h-14 rounded-full object-cover"
+        />
+        <div>
+          <h3 className="font-semibold text-white">Emily Johnson</h3>
+          <p className="text-sm text-gray-100">United Kingdom</p>
+        </div>
+      </div>
+
+<div className="flex gap-1 text-yellow-300 mb-3">
+  {[...Array(4)].map((_, i) => (
+    <svg
+      key={i}
+      className="w-5 h-5"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+    </svg>
+  ))}
+</div>
+
+      <p className="text-white leading-relaxed">The trip was perfectly organized. Every detail was taken care of and the experience exceeded our expectations. We will definitely travel with them again!</p>
+
+    </div>
+
+    <div className="bg-green-800 p-8 rounded-2xl shadow-md hover:shadow-xl transition duration-300">
+
+      <div className="flex items-center gap-4 mb-4">
+        <img
+          src="https://randomuser.me/api/portraits/women/80.jpg"
+          alt="Client"
+          className="w-14 h-14 rounded-full object-cover"
+        />
+        <div>
+          <h3 className="font-semibold text-white">Emily Johnson</h3>
+          <p className="text-sm text-gray-100">United Kingdom</p>
+        </div>
+      </div>
+
+<div className="flex gap-1 text-yellow-300 mb-3">
+  {[...Array(5)].map((_, i) => (
+    <svg
+      key={i}
+      className="w-5 h-5"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+    </svg>
+  ))}
+</div>
+
+      <p className="text-white leading-relaxed">
+        The trip was perfectly organized. Every detail was taken care of and the experience exceeded our expectations. We will definitely travel with them again!
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
       
       </main>
     
+      <footer className="bg-blue-700 text-white pt-16 pb-8 px-6">
+
+<div className="max-w-7xl mx-auto grid gap-12 md:grid-cols-2 items-start">
+
+  {/* Brand */}
+  <div>
+    <h2 className="text-3xl font-semibold mb-4">
+      Travel Agency
+    </h2>
+    <p className="text-blue-100 leading-relaxed max-w-md">
+      It’s not about the trip, it’s about the experience.
+      We create unforgettable journeys around the world.
+    </p>
+  </div>
+
+  {/* Newsletter */}
+  <div className="md:justify-self-end w-full max-w-md">
+    <h3 className="font-semibold text-lg mb-4">
+      Subscribe to our newsletter
+    </h3>
+
+    <form className="flex bg-white rounded-xl overflow-hidden shadow-md">
+      <input
+        type="email"
+        placeholder="Your@email.com"
+        className="flex-1 px-4 py-2 text-gray-700 outline-none"
+      />
+      <button
+        type="submit"
+        className="bg-blue-600 px-5 font-medium hover:bg-blue-800 transition"
+      >
+        Subscribe
+      </button>
+    </form>
+  </div>
+
+</div>
+
+
+    <div className="max-w-7xl mx-auto mt-12 pt-6 border-t border-blue-500 text-center text-blue-200 text-sm"></div>
+
+<div className="max-w-7xl mx-auto mt-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+
+  {/* Quick Links */}
+  <div>
+    <h3 className="text-lg font-semibold mb-4 tracking-wide">
+      Quick links
+    </h3>
+    <ul className="space-y-2 text-blue-100 text-sm">
+      <li><a href="#" className="hover:text-white transition">About Us</a></li>
+      <li><a href="#" className="hover:text-white transition">Destinations</a></li>
+      <li><a href="#" className="hover:text-white transition">Tours and packages</a></li>
+      <li><a href="#" className="hover:text-white transition">Travel blog</a></li>
+      <li><a href="#" className="hover:text-white transition">Contact Us</a></li>
+    </ul>
+  </div>
+
+  {/* Customer Support */}
+  <div>
+    <h3 className="text-lg font-semibold mb-4 tracking-wide">
+      Customer support
+    </h3>
+    <ul className="space-y-2 text-blue-100 text-sm">
+      <li><a href="#" className="hover:text-white transition">FAQs</a></li>
+      <li><a href="#" className="hover:text-white transition">Payment options</a></li>
+      <li><a href="#" className="hover:text-white transition">Travel insurance</a></li>
+    </ul>
+  </div>
+
+  {/* Resources */}
+  <div>
+    <h3 className="text-lg font-semibold mb-4 tracking-wide">
+      Resources
+    </h3>
+    <ul className="space-y-2 text-blue-100 text-sm">
+      <li><a href="#" className="hover:text-white transition">Travel guides</a></li>
+      <li><a href="#" className="hover:text-white transition">Visa information</a></li>
+      <li><a href="#" className="hover:text-white transition">Tips to have a better travel</a></li>
+      <li><a href="#" className="hover:text-white transition">Terms and conditions</a></li>
+    </ul>
+  </div>
+
+  {/* Contact */}
+  <div>
+    <h3 className="text-lg font-semibold mb-4 tracking-wide">
+      Contact Us
+    </h3>
+
+    <ul className="space-y-2 text-blue-100 text-sm mb-6">
+      <li>Madrid, Spain</li>
+      <li>+34 663 88 40 81</li>
+      <li>info@travelagency.es</li>
+    </ul>
+
+    <p className="text-sm font-medium mb-3">Follow us</p>
+
+    <div className="flex gap-4">
+      <a
+        href="#"
+        className="text-blue-200 hover:text-white transition"
+      >
+        <span className="sr-only">Facebook</span>
+        <svg
+          className="h-5 w-5"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fillRule="evenodd"
+            d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+
+  {/* Bottom line */}
+  <div className="max-w-7xl mx-auto mt-12 pt-6 border-t border-blue-500 text-center text-blue-200 text-sm">
+    © 2024 Travel Agency. All rights reserved.
+  </div>
+
+</footer>
+
+
     </>
 
   );
