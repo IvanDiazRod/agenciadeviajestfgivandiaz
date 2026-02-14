@@ -344,25 +344,26 @@ import { useState } from "react";
   </div>
 
   {/* Newsletter */}
-  <div className="md:justify-self-end w-full max-w-md">
-    <h3 className="font-semibold text-lg mb-4">
-      Subscribe to our newsletter
-    </h3>
+<div className="md:justify-self-end w-full max-w-md">
+  <h3 className="font-semibold text-lg mb-4">
+    Subscribe to our newsletter
+  </h3>
 
-    <form className="flex bg-white rounded-xl overflow-hidden shadow-md">
-      <input
-        type="email"
-        placeholder="Your@email.com"
-        className="flex-1 px-4 py-2 text-gray-700 outline-none"
-      />
-      <button
-        type="submit"
-        className="bg-blue-600 px-5 font-medium hover:bg-blue-800 transition"
-      >
-        Subscribe
-      </button>
-    </form>
-  </div>
+  <form className="flex flex-col md:flex-row bg-white rounded-xl overflow-hidden shadow-md">
+    <input
+      type="email"
+      placeholder="Your@email.com"
+      className="flex-1 px-4 py-2 text-gray-700 outline-none"
+    />
+    <button
+      type="submit"
+      className="bg-blue-600 px-5 py-2 mt-2 md:mt-0 md:ml-2 font-medium hover:bg-blue-800 transition"
+    >
+      Subscribe
+    </button>
+  </form>
+</div>
+
 
 </div>
 
