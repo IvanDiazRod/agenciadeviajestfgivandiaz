@@ -112,7 +112,7 @@ export default function Destinos() {
       
       <figure class="aspect-[4/5] overflow-hidden">
         <img
-          src="img/kyoto.jpg"
+          src="../img/kyoto.jpg"
           alt="Eiffel Tower in Paris, France"
           class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />

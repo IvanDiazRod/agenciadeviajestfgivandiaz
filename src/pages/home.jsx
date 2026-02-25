@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
   export default function Home() {
 
@@ -21,6 +21,47 @@ import { useState } from "react";
   const storedUser = localStorage.getItem("user");
 
   const user = storedUser ? JSON.parse(storedUser) : null;
+
+  const reviewsRef = useRef(null);
+
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+
+    const observer = new IntersectionObserver(
+    
+      ([entry]) => {
+      
+        if (entry.isIntersecting) {
+        
+          setIsVisible(true);
+      
+        }
+    
+      },
+    
+      { threshold: 0.2 }
+  
+    );
+
+  
+    if (reviewsRef.current) {
+    
+      observer.observe(reviewsRef.current);
+  
+    }
+
+    return () => {
+    
+      if (reviewsRef.current) {
+      
+        observer.unobserve(reviewsRef.current);
+    
+      }
+  
+    };
+
+  }, []);
 
   const handleLogout = () => {
 
@@ -219,7 +260,7 @@ import { useState } from "react";
 
         </section>
 
-        <section className="w-full bg-gray-50 py-20 px-6">
+        <section ref={reviewsRef} className={`w-full bg-gray-50 py-20 px-6 transition-all duration-1000 ease-out ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
 
           <div className="max-w-6xl mx-auto text-center mb-14">
     
@@ -261,13 +302,13 @@ import { useState } from "react";
 
       <div className="flex items-center gap-4 mb-4">
         <img
-          src="https://randomuser.me/api/portraits/women/60.jpg"
+          src="https://randomuser.me/api/portraits/men/20.jpg"
           alt="Client"
           className="w-14 h-14 rounded-full object-cover"
         />
         <div>
-          <h3 className="font-semibold text-white">Emily Johnson</h3>
-          <p className="text-sm text-gray-100">United Kingdom</p>
+          <h3 className="font-semibold text-white">Michael Chen</h3>
+          <p className="text-sm text-gray-100">Canada</p>
         </div>
       </div>
 
@@ -284,7 +325,7 @@ import { useState } from "react";
   ))}
 </div>
 
-      <p className="text-white leading-relaxed">The trip was perfectly organized. Every detail was taken care of and the experience exceeded our expectations. We will definitely travel with them again!</p>
+      <p className="text-white leading-relaxed">Excellent support and a very intuitive platform. I was able to set everything up in less than an hour. Highly recommended for anyone looking to scale fast.</p>
 
     </div>
 
@@ -292,13 +333,13 @@ import { useState } from "react";
 
       <div className="flex items-center gap-4 mb-4">
         <img
-          src="https://randomuser.me/api/portraits/women/80.jpg"
+          src="https://randomuser.me/api/portraits/women/74.jpg"
           alt="Client"
           className="w-14 h-14 rounded-full object-cover"
         />
         <div>
-          <h3 className="font-semibold text-white">Emily Johnson</h3>
-          <p className="text-sm text-gray-100">United Kingdom</p>
+          <h3 className="font-semibold text-white">Sofia Rodríguez</h3>
+          <p className="text-sm text-gray-100">Spain</p>
         </div>
       </div>
 
@@ -316,7 +357,7 @@ import { useState } from "react";
 </div>
 
       <p className="text-white leading-relaxed">
-        The trip was perfectly organized. Every detail was taken care of and the experience exceeded our expectations. We will definitely travel with them again!
+        The attention to detail and the quality of the service exceeded my expectations. It's rare to find a team so committed to their clients' success. Truly a game-changer for my business!
       </p>
 
     </div>
@@ -349,15 +390,15 @@ import { useState } from "react";
     Subscribe to our newsletter
   </h3>
 
-  <form className="flex flex-col md:flex-row bg-white rounded-xl overflow-hidden shadow-md">
+  <form className="flex flex-col md:flex-row bg-white rounded-xl overflow-hidden shadow-md w-full">
     <input
       type="email"
       placeholder="Your@email.com"
-      className="flex-1 px-4 py-2 text-gray-700 outline-none"
+      className="flex-1 px-4 py-2 text-gray-700 outline-none w-full"
     />
     <button
       type="submit"
-      className="bg-blue-600 px-5 py-2 mt-2 md:mt-0 md:ml-2 font-medium hover:bg-blue-800 transition"
+      className="bg-blue-600 px-5 py-2 mt-2 md:mt-0 md:ml-2 font-medium hover:bg-blue-800 transition w-full md:w-auto"
     >
       Subscribe
     </button>
@@ -426,21 +467,14 @@ import { useState } from "react";
     <p className="text-sm font-medium mb-3">Follow us</p>
 
     <div className="flex gap-4">
-      <a
-        href="#"
-        className="text-blue-200 hover:text-white transition"
-      >
+      
+      <a href="#" className="text-blue-200 hover:text-white transition">
+        
         <span className="sr-only">Facebook</span>
-        <svg
-          className="h-5 w-5"
-          fill="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            fillRule="evenodd"
-            d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
-            clipRule="evenodd"
-          />
+        <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+          
+          <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
+        
         </svg>
       </a>
     </div>
