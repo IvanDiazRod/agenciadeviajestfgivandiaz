@@ -1,14 +1,14 @@
-import { useContext, useState } from "react"; // Quitamos useEffect
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { user, logout } = useContext(AuthContext); // Extraemos los datos globales
+  const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout(); // La función del contexto ya limpia el localStorage y el estado
+    logout();
     setMenuOpen(false);
     navigate("/login");
   };
@@ -45,16 +45,13 @@ export default function Header() {
       w-full md:w-auto
     "
   >
-          
+            <li><Link to="/" className="relative text-white inline-block pb-0.5 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 after:ease-in-out hover:after:w-full transition-transform duration-300 ease-in-out">Home</Link></li>
+
             <li><Link to="/destination" className="relative text-white inline-block pb-0.5 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 after:ease-in-out hover:after:w-full transition-transform duration-300 ease-in-out">Destinations</Link></li>
 
             <li><Link to="/Tours" className="relative text-white inline-block pb-0.5 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 after:ease-in-out hover:after:w-full transition-transform duration-300 ease-in-out">Tours</Link></li>
-          
-            <li><Link to="/" className="relative text-white inline-block pb-0.5 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 after:ease-in-out hover:after:w-full transition-transform duration-300 ease-in-out">About</Link></li>
-          
-            <li><Link to="/" className="relative text-white inline-block pb-0.5 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 after:ease-in-out hover:after:w-full transition-transform duration-300 ease-in-out">Contact</Link></li>
         
-            {user ? (<><li><span className="text-white font-medium">Hello, {user.firstname}</span></li><li><Link onClick={() => { localStorage.removeItem("user"); localStorage.removeItem("token"); window.location.reload(); }} className="relative text-white inline-block pb-0.5 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 after:ease-in-out hover:after:w-full transition-transform duration-300 ease-in-out">Logout</Link></li></>) : (<li><Link className="relative text-white inline-block pb-0.5 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 after:ease-in-out hover:after:w-full transition-transform duration-300 ease-in-out" to="/login">Log in</Link></li>)}
+            {user ? (<><li><Link to="/UserProfile" className="relative inline-flex items-center group"><span className="text-white font-medium bg-blue-600 px-5 py-2.5  rounded-xl  border border-blue-500/50 shadow-inner transition-all  duration-300  ease-in-out hover:bg-blue-500 hover:shadow-md hover:scale-[1.02] active:scale-[0.98]">Hello, {user.firstname}</span></Link></li><li><Link onClick={() => { localStorage.removeItem("user"); localStorage.removeItem("token"); window.location.reload(); }} className="relative text-white inline-block pb-0.5 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 after:ease-in-out hover:after:w-full transition-transform duration-300 ease-in-out">Logout</Link></li></>) : (<li><Link className="relative text-white inline-block pb-0.5 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 after:ease-in-out hover:after:w-full transition-transform duration-300 ease-in-out" to="/login">Log in</Link></li>)}
 
           </ul>
       

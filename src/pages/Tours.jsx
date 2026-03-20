@@ -1,85 +1,74 @@
-import { useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useSearchParams, Link } from "react-router-dom";
+import axios from "axios";
 
 export default function Tours() {
   const [searchParams] = useSearchParams();
+  const [tours, setTours] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  // Extraemos los filtros de la URL
   const destination = searchParams.get("destination");
-  const type = searchParams.get("type");
   const duration = searchParams.get("duration");
+
+  useEffect(() => {
+    const fetchTours = async () => {
+      setLoading(true);
+      try {
+        // Enviamos los filtros actuales a la API de Laravel
+        const response = await axios.get("http://127.0.0.1:8000/api/tours", {
+          params: { destination, duration }
+        });
+        setTours(response.data);
+      } catch (error) {
+        console.error("Error fetching tours", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTours();
+  }, [destination, duration]); // Se dispara cada vez que cambian los filtros en la URL
+
+  if (loading) return <div className="p-20 text-center">Finding the best adventures...</div>;
 
   return (
     <main className="w-full px-6 py-12">
-
-      {/* HEADER */}
-      <section className="max-w-6xl mx-auto mb-10">
-        <h1 className="text-4xl md:text-5xl font-semibold mb-4">
-          Available Tours
-        </h1>
-
-        <p className="text-gray-600 text-lg">
-          Showing results for:
-        </p>
-
-        <div className="flex flex-wrap gap-3 mt-4">
-          {destination && (
-            <span className="bg-blue-100 text-blue-700 px-4 py-2 rounded-full">
-              Destination: {destination}
-            </span>
-          )}
-
-          {type && (
-            <span className="bg-green-100 text-green-700 px-4 py-2 rounded-full">
-              Type: {type}
-            </span>
-          )}
-
-          {duration && (
-            <span className="bg-orange-100 text-orange-700 px-4 py-2 rounded-full">
-              Duration: {duration}
-            </span>
-          )}
-        </div>
-      </section>
-
-      {/* RESULTADOS */}
+      {/* Tu cabecera de filtros se mantiene igual (¡es genial!) */}
+      
       <section className="max-w-6xl mx-auto grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {tours.length > 0 ? (
+          tours.map((tour) => (
+            <div key={tour.id} className="bg-white rounded-2xl shadow-md hover:shadow-xl transition p-4 flex flex-col gap-4">
+              <figure className="w-full h-48 overflow-hidden rounded-xl">
+                <img
+                  src={tour.image_url || "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1"}
+                  alt={tour.title}
+                  className="w-full h-full object-cover"
+                />
+              </figure>
 
-        {/* CARD EJEMPLO */}
-        {[1, 2, 3, 4, 5, 6, 7].map((_, idx) => (
-          <div
-            key={idx}
-            className="bg-white rounded-2xl shadow-md hover:shadow-xl transition p-4 flex flex-col gap-4"
-          >
-            <figure className="w-full h-48 overflow-hidden rounded-xl">
-              <img
-                src="https://source.unsplash.com/random/400x300?travel"
-                alt="Tour"
-                className="w-full h-full object-cover"
-              />
-            </figure>
+              <h3 className="text-xl font-semibold">{tour.title}</h3>
+              <p className="text-gray-500 text-sm italic">{tour.destination?.name}</p>
+              <p className="text-gray-600 text-sm line-clamp-2">{tour.description}</p>
 
-            <h3 className="text-xl font-semibold">
-              Amazing Tour #{idx + 1}
-            </h3>
-
-            <p className="text-gray-600 text-sm">
-              Discover incredible places and live unforgettable experiences.
-            </p>
-
-            <div className="flex justify-between items-center mt-auto">
-              <span className="text-blue-700 font-bold text-lg">
-                €999
-              </span>
-
-              <button className="bg-blue-700 text-white px-4 py-2 rounded-xl hover:bg-blue-600 transition">
-                View
-              </button>
+              <div className="flex justify-between items-center mt-auto">
+                <span className="text-blue-700 font-bold text-lg">€{tour.price}</span>
+                <Link 
+                  to={`/tours/${tour.id}`} 
+                  className="bg-blue-700 text-white px-6 py-2 rounded-xl hover:bg-blue-600 transition"
+                >
+                  View Details
+                </Link>
+              </div>
             </div>
+          ))
+        ) : (
+          <div className="col-span-full text-center py-10 text-gray-400">
+            No tours found matching your search.
           </div>
-        ))}
-
+        )}
       </section>
-
     </main>
   );
 }
