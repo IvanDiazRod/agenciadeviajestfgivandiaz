@@ -1,69 +1,65 @@
 import { useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 export default function DestinationsSection() {
 
-  const [selectedDestination, setSelectedDestination] = useState(null);
+const [selectedDestination, setSelectedDestination] = useState(null);
+
+const navigate = useNavigate();
 
 const destinations = [
   {
     name: "Paris",
+    slug: "paris",
     country: "France",
-    src: "img/France.avif",
-    images: [
-      "img/France.avif",
-      "img/paris2.jpg",
-      "img/paris3.jpg",
-    ],
+    src: "/img/cities/paris/France.avif",
+    images: ["img/France.avif", "img/paris2.jpg", "img/paris3.jpg"],
+    description: "The city of lights, known for its culture, art and iconic landmarks.",
+    price: 1200,
   },
   {
     name: "Kyoto",
+    slug: "kyoto",
     country: "Japan",
-    src: "img/kyoto.jpg",
-    images: [
-      "img/kyoto.jpg",
-      "img/kyoto2.jpg",
-      "img/kyoto3.jpg",
-    ],
+    src: "/img/cities/kyoto/kyoto.jpg",
+    images: ["img/kyoto.jpg", "img/kyoto2.jpg", "img/kyoto3.jpg"],
+    description: "Historic temples, cherry blossoms and traditional Japan.",
+    price: 1400,
   },
   {
     name: "Santorini",
+    slug: "santorini",
     country: "Greece",
-    src: "img/Santorini.jpg",
-    images: [
-      "img/Santorini.jpg",
-      "img/santorini2.jpg",
-      "img/santorini3.jpg",
-    ],
+    src: "/img/cities/santorini/Santorini.jpg",
+    images: [],
+    description: "Stunning sunsets, white-washed buildings, and the deep blue Aegean Sea.",
+    price: 1100,
   },
   {
-    name: "New York",
-    country: "USA",
-    src: "img/NewYork.jpg",
-    images: [
-      "img/NewYork.jpg",
-      "img/newyork2.jpg",
-      "img/newyork3.jpg",
-    ],
+    name: "Rome",
+    slug: "rome",
+    country: "Italy",
+    src: "/img/cities/rome/Rome.webp",
+    images: [],
+    description: "The eternal city, where every corner holds a piece of ancient history.",
+    price: 950,
   },
   {
-    name: "Tashkent",
-    country: "Uzbekistan",
-    src: "img/Taskent.jpg",
-    images: [
-      "img/Taskent.jpg",
-      "img/tashkent2.jpg",
-      "img/tashkent3.jpg",
-    ],
+    name: "Reykjavik",
+    slug: "reykjavik",
+    country: "Iceland",
+    images: [],
+    description: "A land of fire and ice, featuring dramatic landscapes and northern lights.",
+    price: 1600,
   },
   {
-    name: "Hanoi",
-    country: "Vietnam",
-    src: "img/Hanoi.jpg",
-    images: [
-      "img/Hanoi.jpg",
-      "img/hanoi2.jpg",
-      "img/hanoi3.jpg",
-    ],
+    name: "Bali",
+    slug: "bali",
+    country: "Indonesia",
+    images: [],
+    description: "Tropical paradise known for its lush jungles, rice terraces, and spirituality.",
+    price: 1300,
   },
 ];
 
@@ -83,10 +79,8 @@ const destinations = [
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {filteredDestinations.map((dest, idx) => (<div key={idx} onClick={() => setSelectedDestination(dest)} className="group relative overflow-hidden rounded-3xl cursor-pointer"><img src={dest.src} alt={`${dest.name} in ${dest.country}`} className="w-full h-[320px] object-cover transition-transform duration-500 group-hover:scale-110" /><div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition"></div><div className="absolute bottom-4 left-4 text-white"><h3 className="text-xl md:text-2xl font-semibold">{dest.name}</h3><p className="text-sm md:text-base text-gray-200">{dest.country}</p></div></div>))}
+          {filteredDestinations.map((dest, idx) => (<div key={idx} onClick={() => navigate(`/destinations/${dest.slug}`)} className="group relative overflow-hidden rounded-3xl cursor-pointer"><img src={dest.src} alt={`${dest.name} in ${dest.country}`} className="w-full h-[320px] object-cover transition-transform duration-500 group-hover:scale-110" /><div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition"></div><div className="absolute bottom-4 left-4 text-white"><h3 className="text-xl md:text-2xl font-semibold">{dest.name}</h3><p className="text-sm md:text-base text-gray-200">{dest.country}</p></div></div>))}
         </div>
-        
-        {selectedDestination && (<div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"><button onClick={() => setSelectedDestination(null)} className="absolute top-6 right-6 text-white text-4xl hover:scale-110 transition">✕</button><div className="max-w-6xl w-full"><h2 className="text-white text-2xl md:text-4xl mb-6 text-center">{selectedDestination.name}, {selectedDestination.country}</h2><div className="mb-4"><img src={selectedDestination.images[0]} alt="" className="w-full h-[400px] md:h-[500px] object-cover rounded-2xl" /></div><div className="flex gap-3 overflow-x-auto pb-2">{selectedDestination.images.map((img, i) => (<img key={i} src={img} alt="" className="w-24 h-24 object-cover rounded-xl cursor-pointer opacity-80 hover:opacity-100 hover:scale-105 transition" />))}</div></div></div>)}
 
         {filteredDestinations.length === 0 && (<p className="text-center text-gray-500 mt-10">No destinations found...</p>)}
       

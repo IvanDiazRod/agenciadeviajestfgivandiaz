@@ -4,7 +4,7 @@ export default function PopularDestinations() {
 
   const destinations = [
     { src: "img/Honolulu.jpeg", name: "Honolulu", country: "Hawaii" },
-    { src: "img/Roma.webp", name: "Rome", country: "Italy" },
+    { src: "img/cities/rome/Rome.webp", name: "Rome", country: "Italy" },
     { src: "img/Bali.jpeg", name: "Bali", country: "Indonesia" },
     { src: "img/France.avif", name: "Paris", country: "France" },
   ];

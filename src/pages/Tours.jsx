@@ -7,7 +7,6 @@ export default function Tours() {
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Extraemos los filtros de la URL
   const destination = searchParams.get("destination");
   const duration = searchParams.get("duration");
 
