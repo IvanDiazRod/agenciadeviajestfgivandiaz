@@ -1,6 +1,7 @@
 import { useContext, useState, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { User, MapPin, Calendar, Camera, Package, Settings, LogOut } from "lucide-react";
+import { useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -8,8 +9,33 @@ export default function UserProfile() {
   const { user, logout, login } = useContext(AuthContext);
   const [activeTab, setActiveTab] = useState("profile");
 
+  const [bookings, setBookings] = useState([]);
+  const [loadingBookings, setLoadingBookings] = useState(false);
+
   const fileInputRef = useRef(null);
   const [uploading, setUploading] = useState(false);
+
+  useEffect(() => {
+  // Solo pedimos los tours si el usuario está en la pestaña "tours"
+  if (activeTab === "tours") {
+    const fetchBookings = async () => {
+      setLoadingBookings(true);
+      try {
+        const token = localStorage.getItem("token");
+        // Llamamos al endpoint que creamos antes en Laravel
+        const response = await axios.get("http://127.0.0.1:8000/api/my-bookings", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setBookings(response.data);
+      } catch (error) {
+        console.error("Error fetching bookings", error);
+      } finally {
+        setLoadingBookings(false);
+      }
+    };
+    fetchBookings();
+  }
+}, [activeTab]); // Se dispara cada vez que cambias de pestaña
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
@@ -138,17 +164,62 @@ export default function UserProfile() {
           </section>
         )}
 
-        {activeTab === "tours" && (
-          <section className="max-w-4xl animate-fadeIn">
-            <h1 className="text-3xl font-bold text-gray-800 mb-8">My Booked Tours</h1>
-            {/* Aquí mapearemos los tours en el futuro */}
-            <div className="bg-blue-50 border-2 border-dashed border-blue-200 p-12 rounded-2xl text-center">
-              <Package className="mx-auto text-blue-300 mb-4" size={48} />
-              <p className="text-blue-600 font-medium">You haven't booked any tours yet.</p>
-              <Link to="/Tours" className="mt-4 text-blue-700 underline font-semibold">Explore destinations</Link>
+{activeTab === "tours" && (
+  <section className="max-w-4xl animate-fadeIn">
+    <h1 className="text-3xl font-bold text-gray-800 mb-8">My Booked Tours</h1>
+    
+    {loadingBookings ? (
+      <p className="text-center py-10">Loading your adventures...</p>
+    ) : bookings.length > 0 ? (
+      <div className="grid gap-6">
+        {bookings.map((booking) => (
+          <div key={booking.id} className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex flex-col md:flex-row gap-6 hover:shadow-md transition">
+            {/* Imagen del tour (viene de la relación en Laravel) */}
+            <img 
+              src={booking.tour.image_url} 
+              alt={booking.tour.title}
+              className="w-full md:w-40 h-32 object-cover rounded-xl"
+            />
+            
+            <div className="flex-1">
+              <div className="flex justify-between items-start">
+                <h3 className="text-xl font-bold text-gray-800">{booking.tour.title}</h3>
+                <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${
+                  booking.status === 'confirmed' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'
+                }`}>
+                  {booking.status}
+                </span>
+              </div>
+              
+              <div className="grid grid-cols-2 mt-4 gap-4 text-sm text-gray-500">
+                <div className="flex items-center gap-2">
+                  <Calendar size={16} /> {new Date(booking.travel_date).toLocaleDateString()}
+                </div>
+                <div className="flex items-center gap-2">
+                  <User size={16} /> {booking.people_count} {booking.people_count > 1 ? 'people' : 'person'}
+                </div>
+              </div>
             </div>
-          </section>
-        )}
+
+            <div className="flex md:flex-col justify-between items-end border-t md:border-t-0 md:border-l border-gray-100 pt-4 md:pt-0 md:pl-6">
+               <span className="text-2xl font-bold text-blue-700">€{booking.tour.price * booking.people_count}</span>
+               <Link to={`/tours/${booking.tour.id}`} className="text-blue-600 text-sm font-semibold hover:underline">
+                 View Details
+               </Link>
+            </div>
+          </div>
+        ))}
+      </div>
+    ) : (
+      /* Estado vacío si no hay tours */
+      <div className="bg-blue-50 border-2 border-dashed border-blue-200 p-12 rounded-2xl text-center">
+        <Package className="mx-auto text-blue-300 mb-4" size={48} />
+        <p className="text-blue-600 font-medium">You haven't booked any tours yet.</p>
+        <Link to="/Tours" className="mt-4 inline-block text-blue-700 underline font-semibold">Explore destinations</Link>
+      </div>
+    )}
+  </section>
+)}
 
       </main>
     </section>

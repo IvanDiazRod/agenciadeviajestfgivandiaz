@@ -9,6 +9,12 @@ import DestinationDetail from "./pages/DestinationDetails";
 import Tours from "./pages/Tours";
 import UserProfile from "./pages/UserProfile";
 import TourDetail from "./pages/TourDetail";
+import GroupsPage from "./pages/GroupsPage";
+import CityGroups from "./pages/CityGroups";
+import axios from 'axios';
+
+axios.defaults.withCredentials = true; // ¡VITAL! Sin esto, no hay cookies.
+axios.defaults.baseURL = 'http://127.0.0.1:8000';
 
 function App() {
   return (
@@ -24,6 +30,8 @@ function App() {
         <Route path="/Tours" element={<Tours />} />
         <Route path="/tours/:id" element={<TourDetail />} />
         <Route path="UserProfile" element={<UserProfile />} />
+        <Route path="/groups" element={<GroupsPage />} />
+        <Route path="/groups/:city" element={<CityGroups />} />
       </Routes>
       </main>
       <Footer />

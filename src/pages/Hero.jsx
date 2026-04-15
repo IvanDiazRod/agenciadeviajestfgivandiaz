@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function Hero() {
 
@@ -26,7 +27,7 @@ export default function Hero() {
       <div className="relative z-10 flex flex-col gap-6 max-w-xl text-white">
         <h2 className="text-4xl md:text-6xl font-semibold leading-tight">Discover your <br /> perfect tour</h2>
         <p className="text-lg md:text-xl">Explore the world with us and live unforgettable experiences.</p>
-        <button className="bg-blue-700 hover:bg-blue-800 transition-all text-white text-lg md:text-xl px-8 py-4 rounded-2xl w-fit cursor-pointer hover:scale-105">Find tours</button>
+        <Link to="/tours" className="bg-blue-700 hover:bg-blue-800 transition-all text-white text-lg md:text-xl px-8 py-4 rounded-2xl w-fit cursor-pointer hover:scale-105">Find tours</Link>
       </div>
     </section>
   );
