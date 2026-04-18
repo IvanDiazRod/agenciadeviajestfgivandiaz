@@ -11,14 +11,16 @@ import UserProfile from "./pages/UserProfile";
 import TourDetail from "./pages/TourDetail";
 import GroupsPage from "./pages/GroupsPage";
 import CityGroups from "./pages/CityGroups";
+import ScrollToTop from "./layout/ScrollToTop";
 import axios from 'axios';
 
-axios.defaults.withCredentials = true; // ¡VITAL! Sin esto, no hay cookies.
+axios.defaults.withCredentials = true;
 axios.defaults.baseURL = 'http://127.0.0.1:8000';
 
 function App() {
   return (
     <BrowserRouter>
+    <ScrollToTop />
     <Header />
       <main>
       <Routes>

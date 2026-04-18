@@ -1,71 +1,34 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react"; // 1. Añadimos useEffect
 import { useNavigate } from "react-router-dom";
+import axios from "axios"; // 2. Importamos axios
 
 export default function DestinationsSection() {
-
-const [selectedDestination, setSelectedDestination] = useState(null);
-
-const navigate = useNavigate();
-
-const destinations = [
-  {
-    name: "Paris",
-    slug: "paris",
-    country: "France",
-    src: "/img/cities/paris/France.avif",
-    images: ["img/France.avif", "img/paris2.jpg", "img/paris3.jpg"],
-    description: "The city of lights, known for its culture, art and iconic landmarks.",
-    price: 1200,
-  },
-  {
-    name: "Kyoto",
-    slug: "kyoto",
-    country: "Japan",
-    src: "/img/cities/kyoto/kyoto.jpg",
-    images: ["img/kyoto.jpg", "img/kyoto2.jpg", "img/kyoto3.jpg"],
-    description: "Historic temples, cherry blossoms and traditional Japan.",
-    price: 1400,
-  },
-  {
-    name: "Santorini",
-    slug: "santorini",
-    country: "Greece",
-    src: "/img/cities/santorini/Santorini.jpg",
-    images: [],
-    description: "Stunning sunsets, white-washed buildings, and the deep blue Aegean Sea.",
-    price: 1100,
-  },
-  {
-    name: "Rome",
-    slug: "rome",
-    country: "Italy",
-    src: "/img/cities/rome/Rome.webp",
-    images: [],
-    description: "The eternal city, where every corner holds a piece of ancient history.",
-    price: 950,
-  },
-  {
-    name: "Reykjavik",
-    slug: "reykjavik",
-    country: "Iceland",
-    images: [],
-    description: "A land of fire and ice, featuring dramatic landscapes and northern lights.",
-    price: 1600,
-  },
-  {
-    name: "Bali",
-    slug: "bali",
-    country: "Indonesia",
-    images: [],
-    description: "Tropical paradise known for its lush jungles, rice terraces, and spirituality.",
-    price: 1300,
-  },
-];
-
+  const [destinations, setDestinations] = useState([]); // 3. Empezamos con array vacío
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const filteredDestinations = destinations.filter((dest) => `${dest.name} ${dest.country}`.toLowerCase().includes(search.toLowerCase()));
+  const navigate = useNavigate();
 
+  // 4. Petición a la API
+  useEffect(() => {
+    const fetchDestinations = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/destinations");
+        setDestinations(response.data);
+      } catch (error) {
+        console.error("Error loading destinations", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDestinations();
+  }, []);
+
+  const filteredDestinations = destinations.filter((dest) => 
+    `${dest.name} ${dest.country}`.toLowerCase().includes(search.toLowerCase())
+  );
+
+  if (loading) return <div className="text-center py-20">Loading amazing places...</div>;
+  
   return (
     <section className="w-full py-16 md:py-20 px-4 sm:px-6 bg-gray-50">
       <div className="max-w-7xl mx-auto">

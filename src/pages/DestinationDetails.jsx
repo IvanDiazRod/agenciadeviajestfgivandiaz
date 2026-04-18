@@ -1,144 +1,151 @@
 import { useParams, useNavigate } from "react-router-dom";
-
-import.meta.glob
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function DestinationDetail() {
   const { slug } = useParams();
   const navigate = useNavigate();
+  const [destination, setDestination] = useState(null);
+  const [loading, setLoading] = useState(true);
+  
+  // --- NUEVOS ESTADOS PARA EL FORMULARIO ---
+  const [travelDate, setTravelDate] = useState("");
+  const [peopleCount, setPeopleCount] = useState(1);
+  const [bookingLoading, setBookingLoading] = useState(false);
 
-  const parisImages = Object.values(
-  import.meta.glob("/public/img/cities/paris/*.{jpg,png,jpeg,avif,webp}", { eager: true })
-).map((img) => img.default);
+  useEffect(() => {
+    const fetchDestination = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/destinations/${slug}`);
+        setDestination(response.data);
+      } catch (error) {
+        console.error("Error cargando el destino", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDestination();
+  }, [slug]);
 
-const kyotoImages = Object.values(
-  import.meta.glob("/public/img/cities/kyoto/*.{jpg,png,jpeg,avif,webp}", { eager: true })
-).map((img) => img.default);
+  const handleBooking = async () => {
+    const token = localStorage.getItem("token");
 
-const santoriniImages = Object.values(
-  import.meta.glob("/public/img/cities/santorini/*.{jpg,png,jpeg,avif,webp}", { eager: true })
-).map((img) => img.default);
+    if (!token) {
+      alert("Please login to book a flight!");
+      navigate("/login");
+      return;
+    }
 
-const romeImages = Object.values(
-  import.meta.glob("/public/img/cities/rome/*.{jpg,png,jpeg,avif,webp}", { eager: true })
-).map((img) => img.default);
+    if (!travelDate) {
+      alert("Please select a travel date");
+      return;
+    }
 
-  const destinations = [
-    {
-      name: "Paris",
-      slug: "paris",
-      country: "France",
-      images: parisImages,
-      description: "The city of lights, known for its culture, art and iconic landmarks.",
-      price: 1200,
-    },
-    {
-      name: "Kyoto",
-      slug: "kyoto",
-      country: "Japan",
-      images: kyotoImages,
-      description: "Historic temples, cherry blossoms and traditional Japan.",
-      price: 1400,
-    },
-    {
-    name: "Santorini",
-    slug: "santorini",
-    country: "Greece",
-    images: santoriniImages,
-    description: "Stunning sunsets, white-washed buildings, and the deep blue Aegean Sea.",
-    price: 1100,
-  },
-  {
-    name: "Rome",
-    slug: "rome",
-    country: "Italy",
-    images: romeImages,
-    description: "The eternal city, where every corner holds a piece of ancient history.",
-    price: 950,
-  },
-  {
-    name: "Reykjavik",
-    slug: "reykjavik",
-    country: "Iceland",
-    images: [],
-    description: "A land of fire and ice, featuring dramatic landscapes and northern lights.",
-    price: 1600,
-  },
-  {
-    name: "Bali",
-    slug: "bali",
-    country: "Indonesia",
-    images: [],
-    description: "Tropical paradise known for its lush jungles, rice terraces, and spirituality.",
-    price: 1300,
-  },
-  ];
+    setBookingLoading(true);
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/bookings",
+        { 
+          destination_id: destination.id,
+          people_count: peopleCount,
+          travel_date: travelDate 
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      
+      alert("🎉 Booking successful!");
+      navigate("/profile"); // O a donde quieras llevarlo
+    } catch (error) {
+      console.error(error);
+      alert(error.response?.data?.message || "Error processing your booking");
+    } finally {
+      setBookingLoading(false);
+    }
+  };
 
-  console.log("Kyoto images:", kyotoImages);
+  if (loading) return <div className="p-10 text-center">Cargando destino...</div>;
+  if (!destination) return <div className="p-10 text-center">Destination not found</div>;
 
-  const destination = destinations.find(d => d.slug === slug);
-
-  if (!destination) {
-    return (
-      <div className="p-10 text-center">
-        <p>Destination not found</p>
-        <button onClick={() => navigate("/destinations")} className="text-blue-600 underline">
-          Go back
-        </button>
-      </div>
-    );
-  }
+  const gallery = destination.images || [];
 
   return (
     <section className="min-h-screen bg-gray-50 p-6 md:p-12">
-
-      {/* BACK */}
-      <button
-        onClick={() => navigate(-1)}
-        className="mb-6 text-blue-600 hover:underline"
-      >
+      <button onClick={() => navigate(-1)} className="mb-6 text-blue-600 hover:underline">
         ← Back
       </button>
 
-      {/* HERO */}
       <div className="mb-8">
         <img
-          src={destination.images[0]}
-          alt=""
-          className="w-full h-[300px] md:h-[500px] object-cover rounded-2xl"
+          src={destination.src} 
+          alt={destination.name}
+          className="w-full h-[300px] md:h-[500px] object-cover rounded-2xl shadow-lg"
         />
       </div>
 
-      {/* INFO */}
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl md:text-5xl font-bold text-gray-800 mb-4">
           {destination.name}, {destination.country}
         </h1>
 
-        <p className="text-gray-600 text-lg mb-6">
+        <p className="text-gray-600 text-lg mb-6 leading-relaxed">
           {destination.description}
         </p>
 
-        {/* PRICE */}
-        <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-100 mb-8">
-          <p className="text-xl font-semibold text-gray-800">
-            From ${destination.price}
-          </p>
-          <button className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
-            Book now
+        {/* --- FORMULARIO DE RESERVA ACTUALIZADO --- */}
+        <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-100 mb-8 flex flex-col md:flex-row justify-between items-end gap-4">
+{/* --- SECCIÓN DEL PRECIO ACTUALIZADA --- */}
+<div className="flex-1 w-full">
+  <p className="text-sm font-bold text-gray-400 uppercase mb-2">Total Price</p>
+  {/* Multiplicamos el precio del destino por la cantidad de personas */}
+  <p className="text-4xl font-bold text-blue-700">
+    ${(destination.price * peopleCount).toLocaleString()}
+  </p>
+  <p className="text-xs text-gray-400 mt-1">${destination.price} per person</p>
+</div>
+
+          <div className="flex flex-col gap-1 w-full md:w-auto">
+            <label className="text-xs font-bold uppercase text-gray-400">Date</label>
+            <input 
+              type="date" 
+              className="p-2 border rounded-lg focus:ring-2 ring-blue-500 outline-none"
+              onChange={(e) => setTravelDate(e.target.value)}
+            />
+          </div>
+
+<div className="flex flex-col gap-1 w-full md:w-24">
+  <label className="text-xs font-bold uppercase text-gray-400">People</label>
+  <input 
+    type="number" 
+    min="1" 
+    value={peopleCount}
+    className="p-2 border rounded-lg focus:ring-2 ring-blue-500 outline-none"
+    // Usamos Number() para asegurar que peopleCount sea un número
+    onChange={(e) => setPeopleCount(Number(e.target.value))}
+  />
+</div>
+
+          <button 
+            onClick={handleBooking}
+            disabled={bookingLoading}
+            className={`${
+              bookingLoading ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700"
+            } text-white px-8 py-3 rounded-xl transition transform hover:scale-105 w-full md:w-auto`}
+          >
+            {bookingLoading ? "Booking..." : "Book now"}
           </button>
         </div>
 
         {/* GALLERY */}
-        <div className="flex gap-3 overflow-x-auto pb-4">
-          {destination.images.map((img, i) => (
-            <img
-              key={i}
-              src={img}
-              alt=""
-              className="w-32 h-32 object-cover rounded-xl hover:scale-105 transition"
-            />
-          ))}
-        </div>
+        {gallery.length > 0 && (
+          <>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">Gallery</h2>
+            <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+              {gallery.map((img, i) => (
+                <img key={i} src={img} className="w-48 h-32 md:w-64 md:h-44 object-cover rounded-xl" />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </section>
   );
