@@ -27,7 +27,7 @@ export default function DestinationDetail() {
     fetchDestination();
   }, [slug]);
 
-  const handleBooking = async () => {
+const handleBooking = async () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
@@ -42,21 +42,30 @@ export default function DestinationDetail() {
     }
 
     setBookingLoading(true);
+
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/bookings",
+        "http://127.0.0.1:8000/api/flight-bookings",
         { 
           destination_id: destination.id,
-          people_count: peopleCount,
-          travel_date: travelDate 
+          departure_date: travelDate, 
+          // Enviamos el precio total (precio x personas)
+          price: destination.price * peopleCount,
+          people_count: peopleCount // Asegúrate de recibir esto en el controlador si lo necesitas
         },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { 
+          headers: { 
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json" 
+          } 
+        }
       );
       
-      alert("🎉 Booking successful!");
-      navigate("/profile"); // O a donde quieras llevarlo
+      console.log("Respuesta del servidor:", response.data);
+      alert("🎉 Flight booked successfully!");
+      navigate("/profile"); 
     } catch (error) {
-      console.error(error);
+      console.error("Error en la reserva:", error.response?.data);
       alert(error.response?.data?.message || "Error processing your booking");
     } finally {
       setBookingLoading(false);

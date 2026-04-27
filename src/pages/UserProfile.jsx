@@ -41,61 +41,27 @@ export default function UserProfile() {
       fetchBookings();
     }
 
-    if (activeTab === "flights") {
-      const fetchFlights = async () => {
-        setLoadingFlights(true);
-        try {
-          const response = await axios.get("http://127.0.0.1:8000/api/my-flights", {
-            headers: { Authorization: `Bearer ${token}`, Accept: "application/json" }
-          });
-          setFlights(response.data);
-        } catch (error) {
-          console.error("Error fetching flights", error);
-        } finally {
-          setLoadingFlights(false);
-        }
-      };
-      fetchFlights();
-    }
-  }, [activeTab]);
-
-  const handleBooking = async () => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      alert("Please login to book a flight!");
-      navigate("/login");
-      return;
-    }
-
-    if (!travelDate) {
-      alert("Please select a travel date");
-      return;
-    }
-
-    setBookingLoading(true);
+// Dentro del useEffect, donde cargas los vuelos:
+if (activeTab === "flights") {
+  const fetchFlights = async () => {
+    setLoadingFlights(true);
     try {
-// En DestinationDetail.jsx, dentro de handleBooking:
-const response = await axios.post(
-  "http://127.0.0.1:8000/api/bookings",
-  { 
-    destination_id: destination.id,
-    people_count: peopleCount,
-    travel_date: travelDate,
-    type: 'flight' // <--- AÑADE ESTO (asegúrate de que tu tabla tenga esta columna o úsala para filtrar)
-  },
-  { headers: { Authorization: `Bearer ${token}` } }
-);
+      const response = await axios.get("http://127.0.0.1:8000/api/my-flights", {
+        headers: { Authorization: `Bearer ${token}`, Accept: "application/json" }
+      });
       
-      alert("🎉 Booking successful!");
-      navigate("/profile"); 
+      console.log("DATOS RECIBIDOS:", response.data); // <--- ESTO ES ORO
+      setFlights(response.data);
+      
     } catch (error) {
-      console.error(error);
-      alert(error.response?.data?.message || "Error processing your booking");
+      console.error("Error fetching flights", error);
     } finally {
-      setBookingLoading(false);
+      setLoadingFlights(false);
     }
   };
+  fetchFlights();
+}
+  }, [activeTab]);
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
@@ -248,28 +214,59 @@ const response = await axios.post(
               <div className="flex justify-center py-20"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div></div>
             ) : flights.length > 0 ? (
               <div className="grid gap-6">
-                {flights.map((flight) => (
-                  <div key={flight.id} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col md:flex-row gap-6 hover:shadow-md transition">
-                    <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 shrink-0 shadow-inner"><Plane size={32} /></div>
-                    <div className="flex-1">
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">{flight.origin} <span className="text-blue-400">→</span> {flight.destination}</h3>
-                          <p className="text-sm text-blue-600 font-bold uppercase tracking-wide">{flight.airline_name || 'Generic Airline'}</p>
-                        </div>
-                        <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase ${flight.status === 'confirmed' || !flight.status ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>{flight.status || 'Confirmed'}</span>
-                      </div>
-                      <div className="grid grid-cols-2 mt-4 gap-4 text-sm text-gray-500">
-                        <div className="flex items-center gap-2"><Calendar size={16} /> {flight.departure_date ? new Date(flight.departure_date).toLocaleString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'TBA'}</div>
-                        <div className="flex items-center gap-2"><div className="bg-gray-100 px-2 py-0.5 rounded font-mono font-bold text-gray-700 text-xs uppercase">Seat: {flight.seat_number || 'TBA'}</div></div>
-                      </div>
-                    </div>
-                    <div className="flex md:flex-col justify-between items-end border-t md:border-t-0 md:border-l border-gray-100 pt-4 md:pt-0 md:pl-6 text-right">
-                       <div><p className="text-[10px] text-gray-400 uppercase font-bold">Total</p><span className="text-2xl font-bold text-blue-700">€{flight.price}</span></div>
-                       <button className="bg-gray-50 hover:bg-blue-50 text-blue-600 px-4 py-2 rounded-lg text-sm font-semibold transition-colors border border-gray-100">Download Ticket</button>
-                    </div>
-                  </div>
-                ))}
+{/* PESTAÑA VUELOS ACTUALIZADA */}
+{flights.map((flight) => (
+  <div key={flight.id} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col md:flex-row gap-6 hover:shadow-md transition">
+    {/* Imagen dinámica: usamos la del destino reservado */}
+    <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 shrink-0 shadow-inner">
+      {flight.destination?.image_url ? (
+        <img src={flight.destination.image_url} className="w-full h-full object-cover rounded-2xl" alt="Dest" />
+      ) : (
+        <Plane size={32} />
+      )}
+    </div>
+
+    <div className="flex-1">
+      <div className="flex justify-between items-start">
+        <div>
+          {/* CAMBIO CLAVE: Usamos flight.destination.name */}
+          <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+            My City <span className="text-blue-400">→</span> {flight.destination?.name || 'Destination'}
+          </h3>
+          <p className="text-sm text-blue-600 font-bold uppercase tracking-wide">
+            {flight.airline_name || 'SkyTravel Airlines'}
+          </p>
+        </div>
+        <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase ${flight.status === 'confirmed' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
+          {flight.status}
+        </span>
+      </div>
+
+      <div className="grid grid-cols-2 mt-4 gap-4 text-sm text-gray-500">
+        <div className="flex items-center gap-2">
+          <Calendar size={16} /> 
+          {/* Formateo de fecha */}
+          {flight.departure_date ? new Date(flight.departure_date).toLocaleDateString() : 'TBA'}
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="bg-gray-100 px-2 py-0.5 rounded font-mono font-bold text-gray-700 text-xs uppercase">
+            Seat: {flight.seat_number || '12B'}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div className="flex md:flex-col justify-between items-end border-t md:border-t-0 md:border-l border-gray-100 pt-4 md:pt-0 md:pl-6 text-right">
+       <div>
+         <p className="text-[10px] text-gray-400 uppercase font-bold">Total</p>
+         <span className="text-2xl font-bold text-blue-700">€{flight.price}</span>
+       </div>
+       <button className="bg-gray-50 hover:bg-blue-50 text-blue-600 px-4 py-2 rounded-lg text-sm font-semibold transition-colors border border-gray-100">
+         Download Ticket
+       </button>
+    </div>
+  </div>
+))}
               </div>
             ) : (
               <div className="bg-gray-50 border-2 border-dashed border-gray-200 p-12 rounded-3xl text-center">
