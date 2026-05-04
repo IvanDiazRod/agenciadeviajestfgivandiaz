@@ -8,11 +8,9 @@ export default function UserProfile() {
   const { user, logout, login } = useContext(AuthContext);
   const [activeTab, setActiveTab] = useState("profile");
 
-  // Estados para Tours
   const [bookings, setBookings] = useState([]);
   const [loadingBookings, setLoadingBookings] = useState(false);
 
-  // Estados para Vuelos
   const [flights, setFlights] = useState([]);
   const [loadingFlights, setLoadingFlights] = useState(false);
 
@@ -88,6 +86,30 @@ if (activeTab === "flights") {
       setUploading(false);
     }
   };
+
+const handleCancelBooking = async (bookingId) => {
+    const token = localStorage.getItem('token'); 
+    
+    try {
+        // Usamos axios directamente para estar 100% seguros de lo que enviamos
+        const response = await axios.delete(`http://127.0.0.1:8000/api/bookings/${bookingId}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.status === 200) {
+            alert("¡Reserva cancelada con éxito!");
+            // Aquí recarga o filtra tu estado para que desaparezca visualmente
+            window.location.reload(); 
+        }
+    } catch (error) {
+        console.error("Error detallado:", error.response?.data);
+        alert(`Error ${error.response?.status}: ${error.response?.data?.message || 'Error desconocido'}`);
+    }
+};
 
   if (!user) return <div className="p-10 text-center">Loading user data...</div>;
 
@@ -191,6 +213,7 @@ if (activeTab === "flights") {
                       <div className="flex md:flex-col justify-between items-end border-t md:border-t-0 md:border-l border-gray-100 pt-4 md:pt-0 md:pl-6">
                           <span className="text-2xl font-bold text-blue-700">€{(itemInfo?.price || 0) * booking.people_count}</span>
                           <Link to={booking.tour ? `/tours/${itemInfo?.id}` : `/destinations/${itemInfo?.slug || itemInfo?.id}`} className="text-blue-600 text-sm font-semibold hover:underline">View Details</Link>
+                          <button onClick={() => handleCancelBooking(booking.id)} className="text-red-500 text-xs font-medium hover:text-red-700 transition-colors border border-red-200 hover:border-red-400 px-2 py-1 rounded">Cancel Booking</button>
                       </div>
                     </div>
                   );
