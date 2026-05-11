@@ -1,7 +1,9 @@
 @import "tailwindcss";
+
 *::selection {
   @apply bg-black text-white;
 }
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -12,17 +14,29 @@
     transform: translateY(0);
   }
 }
-@keyframes fadeSlideIn {
+
+@keyframes heroTitle {
   0% {
     opacity: 0;
-    transform: translateY(-20px) scale(0.95);
+    transform: translateY(-30px) scale(0.92);
+    letter-spacing: -2px;
+    filter: blur(12px);
   }
+
+  60% {
+    opacity: 1;
+    transform: translateY(4px) scale(1.02);
+    filter: blur(0px);
+  }
+
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
+    letter-spacing: 0px;
+    filter: blur(0px);
   }
 }
 
-.animate-fadeSlideIn {
-  animation: fadeSlideIn 0.8s ease-out forwards;
+.animate-heroTitle {
+  animation: heroTitle 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

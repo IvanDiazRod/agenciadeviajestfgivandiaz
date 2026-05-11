@@ -21,7 +21,6 @@ export default function Login() {
           <section className="w-full min-h-screen flex items-center justify-center p-6 bg-gray-100">
             <div className="w-full sm:w-2/3 md:w-1/2 lg:w-1/3">
               <form onSubmit={handleSubmit} className="w-full flex flex-col gap-6 p-8 border-2 border-blue-600 rounded-3xl shadow-xl bg-white">
-                
                 <h1 className="text-3xl md:text-4xl font-semibold text-center">Log in!</h1>
                 
                 <div className="flex flex-col gap-2">

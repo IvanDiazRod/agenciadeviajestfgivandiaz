@@ -1,111 +1,103 @@
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 export default function CityGroups() {
-
-  const { city } = useParams();
+  const { countrySlug, citySlug } = useParams();
   const navigate = useNavigate();
 
-  const cities = [
+  const countries = [
     {
-      name: "Barcelona",
-      slug: "barcelona",
-      groups: [
+      slug: "spain",
+      cities: [
         {
-          name: "Erasmus Barcelona 25/26",
-          link: "https://chat.whatsapp.com/",
-        },
-        {
-          name: "Erasmus Barcelona 26/27",
-          link: "https://chat.whatsapp.com/",
-        },
-      ],
+          slug: "barcelona",
+          name: "Barcelona",
+          tours: [
+            {
+              name: "Barcelona Nightlife Tour",
+              slug: "nightlife-tour",
+              image: "/img/tours/barcelonanightlife/BarcelonaNightlife1.jpg",
+              description: "Experience Barcelona's best clubs and nightlife.",
+              price: 120
+            },
+            {
+              name: "Sagrada Familia Tour",
+              slug: "sagrada-tour",
+              image: "/img/tours/sagradafamilia/SagradaFamilia1.jpg",
+              description: "Discover Gaudí's masterpiece.",
+              price: 80
+            }
+          ]
+        }
+      ]
     },
     {
-      name: "Paris",
-      slug: "paris",
-      groups: [
+      slug: "france",
+      cities: [
         {
-          name: "Erasmus Paris 25/26",
-          link: "https://chat.whatsapp.com/",
-        },
-      ],
-    },
+          slug: "paris",
+          name: "Paris",
+          tours: [
+            {
+              name: "Eiffel Tower Tour",
+              slug: "eiffel-tour",
+              image: "/img/tours/eiffeltower/EiffelTower1.jpg",
+              description: "Visit Paris' most iconic monument.",
+              price: 150
+            }
+          ]
+        }
+      ]
+    }
   ];
 
-  const selectedCity = cities.find(c => c.slug === city);
+  const country = countries.find(
+    (country) => country.slug === countrySlug
+  );
 
-  if (!selectedCity) {
+  const city = country?.cities.find(
+    (city) => city.slug === citySlug
+  );
+
+  if (!country || !city) {
     return (
-      <div className="p-10 text-center">
-        <p>City not found</p>
-        <button
-          onClick={() => navigate("/groups")}
-          className="text-blue-600 underline mt-2"
-        >
-          Go back
-        </button>
+      <div className="p-10">
+        <h2 className="text-2xl font-bold text-red-500">City not found</h2>
+        <button onClick={() => navigate("/groups")} className="mt-4 text-blue-600 underline">Back to groups</button>
       </div>
     );
   }
 
   return (
-    <section className="min-h-screen bg-gray-50 py-10 px-4 sm:px-6">
-
-      <div className="max-w-5xl mx-auto">
-
-        {/* 🔗 BREADCRUMB */}
-        <div className="text-sm text-gray-500 mb-6">
-          <Link to="/" className="hover:underline">Home</Link>
-          {" / "}
-          <Link to="/groups" className="hover:underline">Groups</Link>
-          {" / "}
-          <span className="text-gray-700">{selectedCity.name}</span>
+    <section className="w-full min-h-screen bg-gray-50 py-16 px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-8 text-sm text-gray-500">
+          <button onClick={() => navigate("/groups")} className="hover:text-blue-600">Groups</button>
+          <span className="mx-2">/</span>
+          <button onClick={() => navigate(`/groups/${countrySlug}`)} className="hover:text-blue-600">{countrySlug}</button>
+          <span className="mx-2">/</span>
+          <span className="text-blue-600 font-medium">{city.name}</span>
         </div>
 
-        {/* 🏙️ HEADER */}
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-5xl font-bold text-gray-800">
-            {selectedCity.name} Groups
-          </h1>
-          <p className="text-gray-600 mt-2">
-            Join your city community and meet other travelers ✈️
-          </p>
+        <div className="mb-12">
+          <h1 className="text-3xl md:text-5xl font-bold text-blue-600">{city.name} Tours</h1>
+          <p className="mt-4 text-gray-600 text-lg">Join a tour and connect with other travelers.</p>
         </div>
 
-        {/* 📦 GROUPS */}
-        <div className="grid gap-6">
-
-          {selectedCity.groups.map((group, idx) => (
-
-            <div
-              key={idx}
-              className="bg-white p-6 rounded-2xl shadow-md border border-gray-100 flex flex-col md:flex-row md:items-center md:justify-between gap-4 hover:shadow-lg transition"
-            >
-
-              <div>
-                <h3 className="text-xl font-semibold text-gray-800">
-                  {group.name}
-                </h3>
-                <p className="text-gray-500 text-sm">
-                  Active community • Join now
-                </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {city.tours.map((tour, index) => (
+            <div key={index} onClick={() => navigate(`/groups/${countrySlug}/${citySlug}/${tour.slug}`)} className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl cursor-pointer transition">
+              <img src={tour.image} alt={tour.name} className="w-full h-[250px] object-cover" />
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-gray-800">{tour.name}</h3>
+                <p className="text-gray-500 mt-2">{tour.description}</p>
+                <div className="mt-4 flex justify-between items-center">
+                  <span className="text-sm text-blue-600 font-medium">View Group</span>
+                </div>
               </div>
-
-              <button
-                onClick={() => window.open(group.link, "_blank")}
-                className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-xl transition font-medium"
-              >
-                Join WhatsApp
-              </button>
-
             </div>
-
           ))}
-
         </div>
-
       </div>
-
     </section>
   );
 }
