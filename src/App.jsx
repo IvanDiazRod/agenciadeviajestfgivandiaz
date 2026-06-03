@@ -19,6 +19,8 @@ import FrequentAskedQuestions from "./pages/FrequentAskedQuestions";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import PaymentOptions from "./pages/PaymentOptions";
+import TravelTips from "./pages/TravelTips";
+import FullRatings from "./pages/FullRatings";
 import axios from 'axios';
 
 axios.defaults.withCredentials = true;
@@ -38,6 +40,8 @@ function App() {
               <Route path="/AboutUs" element={<AboutUs />} />
               <Route path="/ContactUs" element={<ContactUs />} />
               <Route path="/PaymentOptions" element={<PaymentOptions />} />
+              <Route path="/TravelTips" element={<TravelTips />} />
+              <Route path="/FullRatings" element={<FullRatings />} />
               <Route path="/destinations" element={<Destination />} />
               <Route path="/destinations/:slug" element={<DestinationDetail />} />
               <Route path="/Tours" element={<Tours />} />

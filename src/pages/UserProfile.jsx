@@ -199,7 +199,7 @@ const handleCancelFlight = async (flightBookingId) => {
           <div className="flex justify-between items-start">
             <div>
               <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">My City <span className="text-blue-400">→</span> {flight.destination?.name || 'Destination'}</h3>
-              <p className="text-sm text-blue-600 font-bold uppercase tracking-wide">{flight.airline_name || 'SkyTravel Airlines'}</p>
+              <p className="text-sm text-blue-600 font-bold uppercase tracking-wide">{flight.airline_name || 'Travel Agency'}</p>
            </div>
             <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase ${flight.status === 'confirmed' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>{flight.status}</span>
           </div>

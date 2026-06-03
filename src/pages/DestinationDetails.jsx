@@ -73,6 +73,8 @@ export default function DestinationDetail() {
 
   const gallery = destination.images || [];
 
+  const today = new Date().toISOString().split("T")[0];
+
   return (
     <section className="min-h-screen bg-gray-50 p-6 md:p-12">
       <button onClick={() => navigate(-1)} className="mb-6 text-blue-600 hover:underline font-medium">Go Back</button>
@@ -90,7 +92,7 @@ export default function DestinationDetail() {
       
             <div className="flex flex-col gap-2">
               <label className="text-xs font-bold uppercase text-gray-400 ml-1">Departure Date</label>
-              <input type="date" className="p-3 border border-gray-200 rounded-xl focus:ring-2 ring-blue-500 outline-none transition" value={travelDate} onChange={(e) => setTravelDate(e.target.value)} />
+              <input type="date" min={today} className="p-3 border border-gray-200 rounded-xl focus:ring-2 ring-blue-500 outline-none transition" value={travelDate} onChange={(e) => setTravelDate(e.target.value)} />
             </div>
 
             <div className={`flex flex-col gap-2 transition-all ${isRoundTrip ? 'opacity-100' : 'opacity-30 pointer-events-none'}`}>
@@ -100,12 +102,12 @@ export default function DestinationDetail() {
 
             <div className="flex flex-col gap-2">
               <label className="text-xs font-bold uppercase text-gray-400 ml-1">Passengers</label>
-              <input type="number" min={1} value={peopleCount} className="p-3 border border-gray-200 rounded-xl focus:ring-2 ring-blue-500 outline-none transition" onChange={(e) => setPeopleCount(Number(e.target.value))} />
+              <input type="number" min={1} max={60} value={peopleCount} className="p-3 border border-gray-200 rounded-xl focus:ring-2 ring-blue-500 outline-none transition" onChange={(e) => setPeopleCount(Number(e.target.value))} />
             </div>
 
             <div className="flex flex-col">
               <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Price Total</p>
-              <p className="text-3xl font-black text-blue-700 mb-2">${(destination.price * peopleCount * (isRoundTrip ? 1.8 : 1)).toLocaleString()}</p>
+              <p className="text-3xl font-black text-blue-700 mb-2">€{(destination.price * peopleCount * (isRoundTrip ? 1.8 : 1)).toLocaleString()}</p>
               <button onClick={handleBooking} disabled={bookingLoading} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-blue-200 flex items-center justify-center gap-2">{bookingLoading ? "Processing..." : "Confirm Booking"}</button>
             </div>
           </div>

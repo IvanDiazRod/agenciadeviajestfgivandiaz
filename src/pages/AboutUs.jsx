@@ -1,11 +1,12 @@
 import { Globe2, ShieldCheck, Users, Plane, HeartHandshake, Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function AboutUs() {
 
   const stats = [
     { value: "25K+", label: "Happy Travelers" },
     { value: "120+", label: "Destinations" },
-    { value: "340+", label: "Premium Tours" },
+    { value: "340+", label: "Tours" },
     { value: "24/7", label: "Support Team" },
   ];
 
@@ -14,7 +15,7 @@ export default function AboutUs() {
       icon: Globe2,
       title: "Global Experiences",
       description:
-        "We connect travelers with unforgettable destinations, premium tours and unique adventures around the world.",
+        "We connect travelers with unforgettable destinations, tours and unique adventures around the world.",
     },
     {
       icon: ShieldCheck,
@@ -53,10 +54,10 @@ export default function AboutUs() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-black leading-tight">Creating unforgettable{" "}<span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-indigo-400 bg-clip-text text-transparent">travel experiences</span></h1>
-          <p className="mt-8 text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto">Travel Agency is more than a travel platform. We are building a modern ecosystem where flights, tours, communities and unforgettable experiences come together in one premium digital experience.</p>
+          <p className="mt-8 text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto">Travel Agency is more than a what its name says. We are building a modern ecosystem where flights, tours, communities and unforgettable experiences come together in a digital experience.</p>
           <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-            <button className="bg-white text-blue-700 hover:bg-blue-50 px-8 py-4 rounded-2xl font-bold transition-all duration-300 hover:scale-105 shadow-2xl">Explore Destinations</button>
-            <button className="border border-white/20 bg-white/5 backdrop-blur-md hover:bg-white/10 px-8 py-4 rounded-2xl font-semibold transition-all duration-300">Discover Our Tours</button>
+            <Link to="/destinations" className="bg-white text-blue-700 hover:bg-blue-50 px-8 py-4 rounded-2xl font-bold transition-all duration-300 hover:scale-105 shadow-2xl">Explore Destinations</Link>
+            <Link to="/Tours" className="border border-white/20 bg-white/5 backdrop-blur-md hover:bg-white/10 px-8 py-4 rounded-2xl font-semibold transition-all duration-300">Discover Our Tours</Link>
           </div>
         </div>
 
@@ -81,8 +82,8 @@ export default function AboutUs() {
 
             <h2 className="text-4xl md:text-5xl font-black leading-tight">Transforming the way people{" "} <span className="text-cyan-300">discover the world</span></h2>
 
-            <p className="mt-8 text-gray-300 leading-relaxed text-lg">Our mission is to create a premium digital travel experience that combines technology, community and adventure. We want every traveler to feel inspired before, during and after every journey.</p>
-            <p className="mt-6 text-gray-400 leading-relaxed">From premium flights and curated tours to international traveler communities through WhatsApp groups, Travel Agency is designed to make every experience easier, more social and more exciting.</p>
+            <p className="mt-8 text-gray-300 leading-relaxed text-lg">Our mission is to create a digital travel experience that combines technology, community and adventure. We want every traveler to feel inspired before, during and after every journey.</p>
+            <p className="mt-6 text-gray-400 leading-relaxed">From flights and tours to international traveling communities through WhatsApp groups, Travel Agency is designed to make every experience easier, more social and more exciting.</p>
 
           </div>
 
@@ -98,7 +99,7 @@ export default function AboutUs() {
         <div className="mt-32">
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-black">What makes us different</h2>
-            <p className="mt-6 text-gray-300 text-lg leading-relaxed">We combine modern design, premium experiences and social travel features to create a next-generation travel platform.</p>
+            <p className="mt-6 text-gray-300 text-lg leading-relaxed">We combine modern design, traveling experiences and social travel features to create a next-generation travel platform.</p>
           </div>
 
           <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8 mt-16">
@@ -123,11 +124,11 @@ export default function AboutUs() {
           <div className="bg-gradient-to-r from-blue-600/20 via-cyan-500/20 to-indigo-500/20 border border-white/10 backdrop-blur-2xl rounded-[40px] p-10 md:p-16">
 
             <h2 className="text-4xl md:text-6xl font-black leading-tight">Your next adventure{" "} <span className="bg-gradient-to-r from-cyan-300 to-blue-400 bg-clip-text text-transparent">starts here</span></h2>
-            <p className="mt-6 text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed">Discover premium destinations, connect with travelers and explore the world with Travel Agency.</p>
+            <p className="mt-6 text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed">Discover destinations, connect with travelers and explore the world with Travel Agency.</p>
             <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
 
-              <button className="bg-white text-blue-700 hover:bg-blue-50 px-8 py-4 rounded-2xl font-bold transition-all duration-300 hover:scale-105 shadow-2xl">Start Exploring</button>
-              <button className="border border-white/20 bg-white/5 hover:bg-white/10 px-8 py-4 rounded-2xl font-semibold transition-all duration-300">Join Our Community</button>
+              <Link to="/destinations" className="bg-white text-blue-700 hover:bg-blue-50 px-8 py-4 rounded-2xl font-bold transition-all duration-300 hover:scale-105 shadow-2xl">Start Exploring</Link>
+              <Link to="/groups" className="border border-white/20 bg-white/5 hover:bg-white/10 px-8 py-4 rounded-2xl font-semibold transition-all duration-300">Join Our Community</Link>
 
             </div>
           </div>

@@ -1,75 +1,93 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { Globe, ShieldCheck, Plane, Users, MessageCircle } from "lucide-react";
+import { useRef, useMemo } from "react";
 
 export default function TravelReasons() {
-  const reasons = [
-    {
-      title: "Handpicked Destinations",
-      text: "We carefully select unique and authentic locations around the world.",
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
-        </svg>
-      ),
-    },
-    {
-      title: "Customer Satisfaction",
-      text: "Our priority is making sure every traveler has an amazing experience.",
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-        </svg>
-      ),
-    },
-    {
-      title: "Fast & Easy Booking",
-      text: "Plan your trip in minutes with our intuitive platform.",
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
-        </svg>
-      ),
-    },
-  ];
-
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: { staggerChildren: 0.2 }
-    }
-  };
+  const isInView = useInView(sectionRef, {
+    once: true,
+    amount: 0.1,
+  });
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 0.8, ease: [0.21, 0.45, 0.32, 0.9] } 
-    }
-  };
+  const reasons = useMemo(() => [
+    {
+      title: "Global Travel Community",
+      text: "Connect with thousands of travelers, Erasmus students and adventurers worldwide through our modern travel ecosystem.",
+      icon: Globe,
+      gradient: "from-blue-500 to-cyan-400",
+      size: "large",
+    },
+    {
+      title: "Smart Booking Experience",
+      text: "Book flights, tours and activities in seconds with our intuitive next-generation platform.",
+      icon: Plane,
+      gradient: "from-indigo-500 to-blue-500",
+      size: "small",
+    },
+    {
+      title: "Private WhatsApp Groups",
+      text: "Meet travelers before arriving. Join exclusive destination groups and discover events, tips and friendships.",
+      icon: MessageCircle,
+      gradient: "from-green-500 to-emerald-400",
+      size: "small",
+    },
+    {
+      title: "Secure Payments",
+      text: "Advanced encryption, protected transactions and modern payment infrastructure for maximum safety.",
+      icon: ShieldCheck,
+      gradient: "from-slate-700 to-slate-900",
+      size: "small",
+    },
+    {
+      title: "Built For everyone",
+      text: "This platform was designed for travelers who are looking for unforgettable experiences abroad.",
+      icon: Users,
+      gradient: "from-pink-500 to-rose-400",
+      size: "small",
+    },
+  ], []);
+
+  const stats = useMemo(() => [
+    { number: "12K+", label: "Travelers" },
+    { number: "35+", label: "Cities" },
+    { number: "120+", label: "Tours" },
+    { number: "98%", label: "Satisfaction" },
+  ], []);
 
   return (
-    <section ref={sectionRef} className="w-full bg-gradient-to-b from-gray-50 to-white py-16 md:py-24 px-4 sm:px-6">
-      
-      <motion.div initial={{ opacity: 0, y: -20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1 }} className="max-w-6xl mx-auto text-center mb-12 md:mb-16">
-        <h2 className="text-2xl sm:text-3xl md:text-5xl font-semibold text-gray-800 italic">Why travel with us?</h2>
-        <p className="mt-3 md:mt-4 text-gray-600 text-base md:text-lg">We create unforgettable experiences tailored just for you.</p>
+    <section ref={sectionRef} className="relative overflow-hidden py-28 px-4 sm:px-6 bg-gradient-to-b from-white via-slate-50 to-white transform-gpu">
+
+      <motion.div initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, ease: "easeOut" }} className="relative max-w-5xl mx-auto text-center mb-20">
+        <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 text-blue-700 px-5 py-2 rounded-full text-sm font-semibold shadow-sm mb-6">Why do Travelers Choose Travel Agency?</div>
+        <h2 className="text-4xl sm:text-5xl md:text-7xl font-black leading-tight tracking-tight text-slate-900">We Are More Than A <span className="block bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 bg-clip-text text-transparent">Travel Platform</span></h2>
+        <p className="mt-8 text-lg md:text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">We love creating unforgettable journeys, international communities and premium travel experiences designed for modern explorers.</p>
       </motion.div>
 
-      <motion.div variants={containerVariants} initial="hidden" animate={isInView ? "visible" : "hidden"} className="max-w-6xl mx-auto grid gap-6 sm:gap-8 md:gap-10 sm:grid-cols-2 lg:grid-cols-3">
-        {reasons.map((reason, index) => (
-          <motion.div key={index} variants={cardVariants} whileHover={{ y: -10 }} className="group bg-white p-6 md:p-8 rounded-2xl shadow-sm hover:shadow-2xl transition-shadow duration-500 flex flex-col border border-gray-100">
-            <motion.div whileHover={{ rotate: 360 }} transition={{ duration: 0.6 }} className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center bg-blue-50 text-blue-600 rounded-xl mb-4 md:mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">{reason.icon}</motion.div>
-            <h3 className="text-lg md:text-xl font-bold mb-2 text-gray-800 group-hover:text-blue-600 transition-colors">{reason.title}</h3>
-            <p className="text-gray-600 text-sm md:text-base leading-relaxed">{reason.text}</p>
-            <div className="w-0 h-1 bg-blue-600 mt-4 group-hover:w-full transition-all duration-500 rounded-full" />
-          </motion.div>
-        ))}
-      </motion.div>
+      <div className="relative max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7">
+        {reasons.map((reason, index) => {
+          const Icon = reason.icon;
 
+          return (
+            <motion.div key={index} initial={{ opacity: 0, y: 40 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{duration: 0.5, delay: index * 0.05, ease: "easeOut"}} whileHover={{y: -6,}} className={`group relative overflow-hidden rounded-[2rem] border border-slate-100 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.02)] transition-shadow duration-300 ${reason.size === "large" ? "xl:col-span-2 min-h-[320px]" : "min-h-[320px]"}`}>
+              <div className="relative z-10 h-full flex flex-col p-8 md:p-10">
+                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${reason.gradient} flex items-center justify-center text-white shadow-md group-hover:scale-105 transition duration-300`}><Icon size={30} /></div>
+
+                <div className="mt-8 flex-1">
+                  <h3 className="text-2xl md:text-3xl font-black text-slate-900 leading-tight">{reason.title}</h3>
+                  <p className="mt-4 text-slate-600 leading-relaxed text-base md:text-lg">{reason.text}</p>
+                </div>
+
+                <div className="flex items-center justify-between mt-10">
+                  <span className="text-sm font-bold tracking-widest uppercase text-slate-400">The Travel Agency Experience</span>
+                </div>
+
+                <div className={`absolute bottom-0 left-0 h-[4px] bg-gradient-to-r ${reason.gradient} w-0 group-hover:w-full transition-all duration-500 ease-out`} />
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
     </section>
   );
 }

@@ -55,8 +55,7 @@ export default function Footer() {
               <ul className="space-y-2 text-blue-100 text-sm">
                 <li><Link to="/AboutUs" className="hover:text-white transition">About Us</Link></li>
                 <li><Link to="/destinations" className="hover:text-white transition">Destinations</Link></li>
-                <li><Link to="/Tours" className="hover:text-white transition">Tours and packages</Link></li>
-                <li><a href="#" className="hover:text-white transition">Travel blog</a></li>
+                <li><Link to="/Tours" className="hover:text-white transition">Tours</Link></li>
                 <li><Link to="/ContactUs" className="hover:text-white transition">Contact Us</Link></li>
               </ul>
             </div>
@@ -66,16 +65,14 @@ export default function Footer() {
           <ul className="space-y-2 text-blue-100 text-sm">
             <li><Link to="/FrequentAskedQuestions" className="hover:text-white transition">FAQs</Link></li>
             <li><Link to="/PaymentOptions" className="hover:text-white transition">Payment options</Link></li>
-            <li><a href="#" className="hover:text-white transition">Travel insurance</a></li>
+            <li><Link to="/FullRatings" className="hover:text-white transition">Ratings</Link></li>
           </ul>
         </div>
 
         <div>
           <h3 className="text-lg font-semibold mb-4 tracking-wide">Resources</h3>
           <ul className="space-y-2 text-blue-100 text-sm">
-            <li><a href="#" className="hover:text-white transition">Travel guides</a></li>
-            <li><a href="#" className="hover:text-white transition">Visa information</a></li>
-            <li><a href="#" className="hover:text-white transition">Tips to have a better travel</a></li>
+            <li><Link to="/TravelTips" className="hover:text-white transition">Tips to have a better travel</Link></li>
             <li><Link to="/PrivacyPolicy" className="hover:text-white transition">Privacy policy</Link></li>
           </ul>
         </div>
